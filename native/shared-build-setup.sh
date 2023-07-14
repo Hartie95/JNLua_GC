@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TARGET_LUA_VERSION="${1:-5.3}"
-
+OSX_SDK_VERSION="${2:-22.2}"
 LINUX_COMPILER="gcc"
 LINUX_ARM_COMPILER="aarch64-linux-gnu-gcc"
 LINUX_ARM_LD="aarch64-linux-gnu-ld"
@@ -18,16 +18,16 @@ MINGW_LUA_TYPE="mingw"
 
 MAC_x86_64_COMPILER="o64-clang"
 MAC_ARM64E_COMPILER="oa64e-clang"
-MAC_x86_64_STRIP="x86_64-apple-darwin22.4-strip"
-MAC_ARM64E_STRIP="arm64e-apple-darwin22.4-strip"
+MAC_x86_64_STRIP="x86_64-apple-darwin$OSX_SDK_VERSION-strip"
+MAC_ARM64E_STRIP="arm64e-apple-darwin$OSX_SDK_VERSION-strip"
 MAC_LIB_SUFFIX="dylib"
 MAC_LUA_TYPE="posix"
-MAC_x86_64_RANLIB="x86_64-apple-darwin22.4-ranlib"
-MAC_x86_64_AR="x86_64-apple-darwin22.4-ar rcu"
-MAC_x86_64_CODESIGN="x86_64-apple-darwin22.4-codesign_allocate"
-MAC_ARM64E_RANLIB="arm64e-apple-darwin22.4-ranlib"
-MAC_ARM64E_AR="arm64e-apple-darwin22.4-ar rcu"
-MAC_ARM64E_CODESIGN="arm64e-apple-darwin22.4-codesign_allocate"
+MAC_x86_64_RANLIB="x86_64-apple-darwin$OSX_SDK_VERSION-ranlib"
+MAC_x86_64_AR="x86_64-apple-darwin$OSX_SDK_VERSION-ar rcu"
+MAC_x86_64_CODESIGN="x86_64-apple-darwin$OSX_SDK_VERSION-codesign_allocate"
+MAC_ARM64E_RANLIB="arm64e-apple-darwin$OSX_SDK_VERSION-ranlib"
+MAC_ARM64E_AR="arm64e-apple-darwin$OSX_SDK_VERSION-ar rcu"
+MAC_ARM64E_CODESIGN="arm64e-apple-darwin$OSX_SDK_VERSION-codesign_allocate"
 
 LINUX_LD_FLAGS="-static-libgcc"
 WINDOWS_LD_FLAGS="-static-libgcc"
