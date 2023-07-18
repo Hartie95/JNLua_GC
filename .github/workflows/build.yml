@@ -48,7 +48,9 @@ jobs:
         with:
           platform: x64
       - name: Install dependencies
-        run: sudo apt-get install gcc-multilib
+        run: sudo apt install gcc-multilib
+      - name: Install arm cross compilers
+        run: sudo apt install crossbuild-essential-arm64 binutils-arm-none-eabi gcc-arm-none-eabi libnewlib-arm-none-eabi
       - name: Build native
         run: native/shared-build-setup.sh 5.3 22.2
       - name: Upload native
