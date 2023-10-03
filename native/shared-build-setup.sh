@@ -1,11 +1,20 @@
 #!/bin/bash
 
 TARGET_LUA_VERSION="${1:-5.3}"
+OSX_SDK_VERSION="${2:-22.2}"
 
 LINUX_COMPILER="gcc"
-LINUX_ARM_COMPILER="aarch64-linux-gnu-gcc"
-LINUX_ARM_LD="aarch64-linux-gnu-ld"
 LINUX_STRIP="strip"
+LINUX_ARM_COMPILER="arm-none-eabi-gcc"
+LINUX_ARM_LD="arm-none-eabi-ld"
+LINUX_ARM_STRIP="arm-none-eabi-strip"
+LINUX_ARM_AR="arm-none-eabi-ar rcu"
+LINUX_ARM_RANLIB="arm-none-eabi-ranlib"
+LINUX_ARM64_COMPILER="aarch64-linux-gnu-gcc"
+LINUX_ARM64_LD="aarch64-linux-gnu-ld"
+LINUX_ARM64_STRIP="aarch64-linux-gnu-strip"
+LINUX_ARM64_AR="aarch64-linux-gnu-ar rcu"
+LINUX_ARM64_RANLIB="aarch64-linux-gnu-ranlib"
 LINUX_LIB_SUFFIX="so"
 LINUX_LUA_TYPE="posix"
 
@@ -18,16 +27,16 @@ MINGW_LUA_TYPE="mingw"
 
 MAC_x86_64_COMPILER="o64-clang"
 MAC_ARM64E_COMPILER="oa64e-clang"
-MAC_x86_64_STRIP="x86_64-apple-darwin22.4-strip"
-MAC_ARM64E_STRIP="arm64e-apple-darwin22.4-strip"
+MAC_x86_64_STRIP="x86_64-apple-darwin$OSX_SDK_VERSION-strip"
+MAC_ARM64E_STRIP="arm64e-apple-darwin$OSX_SDK_VERSION-strip"
 MAC_LIB_SUFFIX="dylib"
 MAC_LUA_TYPE="posix"
-MAC_x86_64_RANLIB="x86_64-apple-darwin22.4-ranlib"
-MAC_x86_64_AR="x86_64-apple-darwin22.4-ar rcu"
-MAC_x86_64_CODESIGN="x86_64-apple-darwin22.4-codesign_allocate"
-MAC_ARM64E_RANLIB="arm64e-apple-darwin22.4-ranlib"
-MAC_ARM64E_AR="arm64e-apple-darwin22.4-ar rcu"
-MAC_ARM64E_CODESIGN="arm64e-apple-darwin22.4-codesign_allocate"
+MAC_x86_64_RANLIB="x86_64-apple-darwin$OSX_SDK_VERSION-ranlib"
+MAC_x86_64_AR="x86_64-apple-darwin$OSX_SDK_VERSION-ar rcu"
+MAC_x86_64_CODESIGN="x86_64-apple-darwin$OSX_SDK_VERSION-codesign_allocate"
+MAC_ARM64E_RANLIB="arm64e-apple-darwin$OSX_SDK_VERSION-ranlib"
+MAC_ARM64E_AR="arm64e-apple-darwin$OSX_SDK_VERSION-ar rcu"
+MAC_ARM64E_CODESIGN="arm64e-apple-darwin$OSX_SDK_VERSION-codesign_allocate"
 
 LINUX_LD_FLAGS="-static-libgcc"
 WINDOWS_LD_FLAGS="-static-libgcc"
@@ -126,6 +135,10 @@ echo "setup"
   ## Linux
 build $TARGET_LUA_VERSION "linux" "i686" $LINUX_COMPILER $LINUX_STRIP $LINUX_LIB_SUFFIX "$I686_CFLAGS" "$I686_LDFLAGS $LINUX_LD_FLAGS" "$LINUX_LUA_TYPE"
 build $TARGET_LUA_VERSION "linux" "amd64" $LINUX_COMPILER $LINUX_STRIP $LINUX_LIB_SUFFIX "$X86_64_CFLAGS" "$X86_64_LDFLAGS $LINUX_LD_FLAGS" "$LINUX_LUA_TYPE"
+build $TARGET_LUA_VERSION "linux" "arm" $LINUX_ARM_COMPILER $LINUX_ARM_STRIP $LINUX_LIB_SUFFIX "$ARM64E_CFLAGS" "$ARM64E_LDFLAGS $LINUX_LD_FLAGS" \
+"$LINUX_LUA_TYPE" "$LINUX_ARM_AR" "$LINUX_ARM_RANLIB"
+build $TARGET_LUA_VERSION "linux" "aarch64" $LINUX_ARM64_COMPILER $LINUX_ARM64_STRIP $LINUX_LIB_SUFFIX "$ARM64E_CFLAGS" "$ARM64E_LDFLAGS $LINUX_LD_FLAGS" \
+"$LINUX_LUA_TYPE" "$LINUX_ARM64_AR" "$LINUX_ARM64_RANLIB"
 
 ## Windows
 build $TARGET_LUA_VERSION "windows" "i686" $MINGW_I686_COMPILER $MINGW_I686_STRIP $MINGW_LIB_SUFFIX "$I686_CFLAGS" "$I686_LDFLAGS $WINDOWS_LD_FLAGS" "$MINGW_LUA_TYPE"
