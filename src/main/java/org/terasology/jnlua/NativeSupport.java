@@ -95,8 +95,10 @@ public final class NativeSupport {
     }
 
     private static class DefaultLoader implements Loader {
+        private static boolean nativeLibLoaded = false;
         @Override
         public void load(Class<?> src) {
+            if (nativeLibLoaded) return;
             File libFile;
             String platformTypeName;
             String platform;
@@ -140,7 +142,7 @@ public final class NativeSupport {
 
             String libFileName = String.format("/%s/%s-%s", "jni", platformTypeName, osTypeName);
             try {
-                libFile = File.createTempFile("lib", null);
+                libFile = File.createTempFile("libjnlua", null);
                 libFile.deleteOnExit();
                 if (!libFile.exists()) {
                     throw new IOException();
@@ -171,6 +173,7 @@ public final class NativeSupport {
                 throw new UnsatisfiedLinkError(String.format("Failed to copy file: %s", exception.getMessage()));
             }
             System.load(libFile.getAbsolutePath());
+            nativeLibLoaded = true;
         }
     }
 }
