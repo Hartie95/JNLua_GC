@@ -39,7 +39,7 @@ MAC_ARM64E_AR="arm64e-apple-darwin$OSX_SDK_VERSION-ar rcu"
 MAC_ARM64E_CODESIGN="arm64e-apple-darwin$OSX_SDK_VERSION-codesign_allocate"
 
 LINUX_LD_FLAGS="-static-libgcc"
-WINDOWS_LD_FLAGS="-static-libgcc"
+WINDOWS_LD_FLAGS="-static"
 MAC_LDFLAGS="-dynamic"
 
 I686_CFLAGS="-fPIC -O2 -m32"
