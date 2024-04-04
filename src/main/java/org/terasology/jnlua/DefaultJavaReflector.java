@@ -89,7 +89,7 @@ public class DefaultJavaReflector implements JavaReflector {
 	/**
 	 * Creates a new instances;
 	 */
-	private DefaultJavaReflector() {
+	protected DefaultJavaReflector() {
 	}
 
 	// -- JavaReflector methods
@@ -160,7 +160,7 @@ public class DefaultJavaReflector implements JavaReflector {
 	/**
 	 * Creates the accessors of a class.
 	 */
-	private Map<String, Accessor> createClassAccessors(Class<?> clazz) {
+	protected Map<String, Accessor> createClassAccessors(Class<?> clazz) {
 		Map<String, Accessor> result = new HashMap<String, Accessor>();
 
 		// Fields
@@ -289,7 +289,7 @@ public class DefaultJavaReflector implements JavaReflector {
 	 * Returns a public class method matching a method name and parameter list.
 	 * The public class can be a superclass or interface.
 	 */
-	private Method getPublicClassMethod(Class<?> clazz, String methodName,
+	protected Method getPublicClassMethod(Class<?> clazz, String methodName,
 			Class<?>[] parameterTypes) {
 		Method method = getPublicSuperclassMethod(clazz, methodName,
 				parameterTypes);
@@ -816,7 +816,7 @@ public class DefaultJavaReflector implements JavaReflector {
 	/**
 	 * Provides access to class or object members.
 	 */
-	private interface Accessor {
+	protected interface Accessor {
 		/**
 		 * Reads the object member.
 		 */
@@ -841,7 +841,7 @@ public class DefaultJavaReflector implements JavaReflector {
 	/**
 	 * Provides field access.
 	 */
-	private class FieldAccessor implements Accessor {
+	protected class FieldAccessor implements Accessor {
 		// -- State
 		private Field field;
 
@@ -899,7 +899,7 @@ public class DefaultJavaReflector implements JavaReflector {
 	/**
 	 * Provides invocable access.
 	 */
-	private class InvocableAccessor implements Accessor, JavaFunction {
+	protected class InvocableAccessor implements Accessor, JavaFunction {
 		// -- State
 		private Class<?> clazz;
 		private List<Invocable> invocables;
@@ -1304,7 +1304,7 @@ public class DefaultJavaReflector implements JavaReflector {
 	/**
 	 * Provides property access.
 	 */
-	private class PropertyAccessor implements Accessor {
+	protected class PropertyAccessor implements Accessor {
 		// -- State
 		private Class<?> clazz;
 		private PropertyDescriptor propertyDescriptor;
@@ -1378,7 +1378,7 @@ public class DefaultJavaReflector implements JavaReflector {
 	/**
 	 * Virtual superinterface for methods and constructors.
 	 */
-	private interface Invocable {
+	protected interface Invocable {
 		/**
 		 * Returns what this invocable is, for use in diagnostic messages.
 		 */
@@ -1441,7 +1441,7 @@ public class DefaultJavaReflector implements JavaReflector {
 	/**
 	 * Invocable method.
 	 */
-	private static class InvocableMethod implements Invocable {
+	protected static class InvocableMethod implements Invocable {
 		private Method method;
 		private Class<?>[] parameterTypes;
 
@@ -1524,7 +1524,7 @@ public class DefaultJavaReflector implements JavaReflector {
 	/**
 	 * Invocable constructor.
 	 */
-	private static class InvocableConstructor implements Invocable {
+	protected static class InvocableConstructor implements Invocable {
 		// -- State
 		private Constructor<?> constructor;
 		private Class<?>[] parameterTypes;
@@ -1608,7 +1608,7 @@ public class DefaultJavaReflector implements JavaReflector {
 	/**
 	 * Invocable proxy.
 	 */
-	private static class InvocableProxy implements Invocable {
+	protected static class InvocableProxy implements Invocable {
 		// -- Static
 		private static final Class<?>[] PARAMETER_TYPES = new Class<?>[] { LuaValueProxy.class };
 
@@ -1692,7 +1692,7 @@ public class DefaultJavaReflector implements JavaReflector {
 	/**
 	 * Lua call signature.
 	 */
-	private static class LuaCallSignature {
+	protected static class LuaCallSignature {
 		// -- State
 		private Class<?> clazz;
 		private String invocableName;
